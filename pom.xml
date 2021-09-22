@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.tacitknowledge</groupId>
+    <artifactId>gatling-maven-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+
+        <gatling.version>3.1.2</gatling.version>
+        <gatling-maven-plugin.version>3.0.1</gatling-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>${gatling.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-app</artifactId>
+            <version>${gatling.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-recorder</artifactId>
+            <version>${gatling.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>${gatling-maven-plugin.version}</version>
+                <configuration>
+                    <simulationsFolder>${project.basedir}/src/test/scala
+                    </simulationsFolder> <!-- where the simulations to be compiled are located -->
+                    <resourcesFolder>${project.basedir}/src/test/resources
+                    </resourcesFolder> <!-- where the test resources are located -->
+                    <resultsFolder>${project.basedir}/target/gatling</resultsFolder>
+                    <jvmArgs>
+                        <jvmArg>-d64</jvmArg>
+                        <jvmArg>-Xms1024m</jvmArg>
+                        <jvmArg>-Xmx4096m</jvmArg>
+                        <jvmArg>-XX:NewSize=1024m</jvmArg>
+                        <jvmArg>-XX:MaxNewSize=1024m</jvmArg>
+                        <jvmArg>-XX:MaxTenuringThreshold=2</jvmArg>
+                        <jvmArg>-Xmn100M</jvmArg>
+                        <jvmArg>-Xss2M</jvmArg>
+                        <jvmArg>-XX:+UseThreadPriorities</jvmArg>
+                        <jvmArg>-XX:ThreadPriorityPolicy=42</jvmArg>
+                        <jvmArg>-XX:+AggressiveOpts</jvmArg>
+                        <jvmArg>-XX:+OptimizeStringConcat</jvmArg>
+                        <jvmArg>-XX:+UseFastAccessorMethods</jvmArg>
+                        <jvmArg>-XX:+UseParNewGC</jvmArg>
+                        <jvmArg>-XX:+UseConcMarkSweepGC</jvmArg>
+                        <jvmArg>-XX:+CMSParallelRemarkEnabled</jvmArg>
+                        <jvmArg>-XX:+CMSClassUnloadingEnabled</jvmArg>
+                        <jvmArg>-XX:SurvivorRatio=8</jvmArg>
+                        <jvmArg>-XX:CMSInitiatingOccupancyFraction=75</jvmArg>
+                        <jvmArg>-XX:+UseCMSInitiatingOccupancyOnly</jvmArg>
+                        <jvmArg>-Dsun.rmi.dgc.client.gcInterval=600000</jvmArg>
+                        <jvmArg>-Dsun.rmi.dgc.server.gcInterval=600000</jvmArg>
+                        <jvmArg>-XX:+HeapDumpOnOutOfMemoryError</jvmArg>
+                        <jvmArg>-verbose:gc</jvmArg>
+                        <jvmArg>-XX:+PrintGCDateStamps</jvmArg>
+                        <jvmArg>-XX:+PrintGCTimeStamps</jvmArg>
+                        <jvmArg>-XX:+PrintGCDetails</jvmArg>
+                        <jvmArg>-Xloggc:${project.basedir}/logs/verbosegc.log</jvmArg>
+                        <jvmArg>-XX:-UseGCLogFileRotation</jvmArg>
+                        <!--<jvmArg>-XX:+DisableExplicitGC</jvmArg>-->
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
